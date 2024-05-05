@@ -1,0 +1,31 @@
+{
+    "name": "ocolin/database",
+    "description": "Basic ENV based database handler meant for simple use light weight cases",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ocolin/EasyEnv"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.1",
+        "phpstan/phpstan": "^1.10"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ocolin\\Database\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Colin Miller",
+            "email": "ocolin@cruzio.com"
+        }
+    ],
+    "require": {
+        "ocolin/easyenv": "^1.0",
+        "ext-pdo": "*"
+    }
+}
