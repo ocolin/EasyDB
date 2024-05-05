@@ -1,3 +1,6 @@
+.*
+!/.gitignore
+!/.env.example
 composer.phar
 /vendor/
 
