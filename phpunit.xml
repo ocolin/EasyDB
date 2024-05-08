@@ -7,6 +7,10 @@
         cacheDirectory=".phpunit.cache"
         displayDetailsOnTestsThatTriggerWarnings="true"
 >
-
+    <testsuites>
+        <testsuite name="Validations">
+            <file>tests/testTest.php</file>
+        </testsuite>
+    </testsuites>
 
 </phpunit>

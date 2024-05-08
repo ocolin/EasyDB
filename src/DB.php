@@ -47,7 +47,6 @@ class DB
                     message: print_r(
                         value: [
                             'globals' => $GLOBALS,
-                            'server' => $_SERVER,
                             'db' => $e->getMessage()
                         ],
                         return: true
@@ -58,6 +57,7 @@ class DB
                 echo $e->getMessage();
             }
         }
+
     }
 
 
@@ -72,18 +72,24 @@ class DB
      * @param string $prefix Name to append onto environment variable. This is to
      *  allow multiple handlers with different names to be called, but while keeping
      * the data in the environment and avoid coding them all in.
-     * @param bool $local Load environment variables from .env within this library
+     * @param string|null $table Name of table in Database.
+     * @param bool $local Load environment variables from .env within this library.
      * @return PDO
      * @throws Exception
      */
-    public static function envDbHandler( string $prefix, bool $local = false ) : PDO
+    public static function envDbHandler(
+        string $prefix,
+        string $table = null,
+          bool $local = false
+    ) : PDO
     {
         if( $local === true ) {
             EasyEnv::loadEnv(path: __DIR__ . '/../.env', silent: true, append: true);
         }
+
         $o = new self(
             host: $_ENV[ $prefix . '_DB_HOST' ],
-            name: $_ENV[ $prefix . '_DB_NAME' ],
+            name: $table ?? $_ENV[ $prefix . '_DB_NAME' ],
             user: $_ENV[ $prefix . '_DB_USER' ],
             pass: $_ENV[ $prefix . '_DB_PASS' ],
         );
@@ -102,13 +108,14 @@ class DB
      *
      * @param string $prefix Prefix to add to name of database environment
      * credentials.
+     * @param string|null $table Name of DB table.
      * @return PDO
      */
-    public static function localHandler( string $prefix ) : PDO
+    public static function localHandler( string $prefix, string $table = null ) : PDO
     {
         $o = new self(
             host: 'localhost',
-            name: $_ENV[ $prefix . '_DB_NAME' ],
+            name: $table ?? $_ENV[ $prefix . '_DB_NAME' ],
             user: $_ENV[ $prefix . '_DB_USER' ],
             pass: $_ENV[ $prefix . '_DB_PASS' ],
         );
