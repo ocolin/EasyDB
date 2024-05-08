@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Ocolin\Database;
+namespace Ocolin\EasyDB;
 
 use Exception;
 use PDO;

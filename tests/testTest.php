@@ -2,15 +2,16 @@
 
 declare( strict_types = 1 );
 
-namespace Ocolin\Database\Tests;
+namespace Ocolin\EasyDB\Tests;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
-use Ocolin\Database\DB;
+use Ocolin\EasyDB\DB;
 
 final class testTest extends TestCase
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testONE() : void
     {

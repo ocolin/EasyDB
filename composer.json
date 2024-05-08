@@ -15,8 +15,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ocolin\\Database\\": "src/",
-            "Ocolin\\Database\\Tests\\": "tests/"
+            "Ocolin\\EasyDB\\": "src/",
+            "Ocolin\\EasyDB\\Tests\\": "tests/"
         }
     },
     "authors": [
