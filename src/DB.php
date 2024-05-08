@@ -4,6 +4,8 @@ declare( strict_types = 1 );
 
 namespace Ocolin\EasyDB;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use Exception;
 use PDO;
 use \Ocolin\Env\EasyEnv;
@@ -89,7 +91,7 @@ class DB
 
         $o = new self(
             host: $_ENV[ $prefix . '_DB_HOST' ],
-            name: $table ?? $_ENV[ $prefix . '_DB_NAME' ],
+            name: $db ?? $_ENV[ $prefix . '_DB_NAME' ],
             user: $_ENV[ $prefix . '_DB_USER' ],
             pass: $_ENV[ $prefix . '_DB_PASS' ],
         );
@@ -125,7 +127,7 @@ class DB
 
         $o = new self(
             host: 'localhost',
-            name: $table ?? $_ENV[ $prefix . '_DB_NAME' ],
+            name: $db ?? $_ENV[ $prefix . '_DB_NAME' ],
             user: $_ENV[ $prefix . '_DB_USER' ],
             pass: $_ENV[ $prefix . '_DB_PASS' ],
         );
