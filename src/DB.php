@@ -72,14 +72,14 @@ class DB
      * @param string $prefix Name to append onto environment variable. This is to
      *  allow multiple handlers with different names to be called, but while keeping
      * the data in the environment and avoid coding them all in.
-     * @param string|null $table Name of table in Database.
+     * @param string|null $db Name of table in Database.
      * @param bool $local Load environment variables from .env within this library.
      * @return PDO
      * @throws Exception
      */
     public static function envDbHandler(
         string $prefix,
-        string $table = null,
+        string $db = null,
           bool $local = false
     ) : PDO
     {
@@ -99,7 +99,7 @@ class DB
 
 
 
-/*
+/* CREATE HANDLER ON LOCAL HOST
 ----------------------------------------------------------------------------- */
 
     /**
@@ -108,11 +108,21 @@ class DB
      *
      * @param string $prefix Prefix to add to name of database environment
      * credentials.
-     * @param string|null $table Name of DB table.
+     * @param string|null $db Name of DB table.
+     * @param bool $local Load local environment variables.
      * @return PDO
+     * @throws Exception
      */
-    public static function localHandler( string $prefix, string $table = null ) : PDO
+    public static function localHandler(
+        string $prefix,
+        string $db = null,
+          bool $local = false
+    ) : PDO
     {
+        if( $local === true ) {
+            EasyEnv::loadEnv(path: __DIR__ . '/../.env', silent: true, append: true);
+        }
+
         $o = new self(
             host: 'localhost',
             name: $table ?? $_ENV[ $prefix . '_DB_NAME' ],
