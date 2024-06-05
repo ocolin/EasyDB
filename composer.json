@@ -1,5 +1,5 @@
 {
-    "name": "ocolin/database",
+    "name": "ocolin/easydb",
     "description": "Basic ENV based database handler meant for simple use light weight cases",
     "type": "library",
     "repositories": [
