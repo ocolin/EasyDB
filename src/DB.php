@@ -4,7 +4,9 @@ declare( strict_types = 1 );
 
 namespace Ocolin\EasyDB;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+if( file_exists( filename: __DIR__ . '/../vendor/autoload.php' )) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
 
 use Exception;
 use PDO;
@@ -80,9 +82,9 @@ class DB
      * @throws Exception
      */
     public static function envDbHandler(
-        string $prefix,
-        string $db = null,
-          bool $local = false
+         string $prefix,
+        ?string $db = null,
+           bool $local = false
     ) : PDO
     {
         if( $local === true ) {
@@ -116,9 +118,9 @@ class DB
      * @throws Exception
      */
     public static function localHandler(
-        string $prefix,
-        string $db = null,
-          bool $local = false
+         string $prefix,
+        ?string $db = null,
+           bool $local = false
     ) : PDO
     {
         if( $local === true ) {
