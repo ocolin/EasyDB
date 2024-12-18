@@ -10,7 +10,8 @@ if( file_exists( filename: __DIR__ . '/../vendor/autoload.php' )) {
 
 use Exception;
 use PDO;
-use \Ocolin\Env\EasyEnv;
+use Ocolin\Env\EasyEnv;
+use PDOException;
 use PDOStatement;
 
 class DB
@@ -43,17 +44,17 @@ class DB
             $this->db->setAttribute( attribute: PDO::ATTR_ERRMODE, value: PDO::ERRMODE_EXCEPTION );
             $this->db->setAttribute( attribute: PDO::ATTR_STRINGIFY_FETCHES, value:false );
         }
-        catch( \PDOException $e ) {
+        catch( PDOException $e ) {
             if( isset( $_ENV['DATABASE_ERROR_EMAIL'] )) {
                 mail(
-                         to: $_ENV['DATABASE_ERROR_EMAIL'],
-                    subject: "DB error with {$this->host} : {$this->name}",
-                    message: print_r(
-                        value: [
+                          to: $_ENV['DATABASE_ERROR_EMAIL'],
+                     subject: "DB error with {$this->host} : {$this->name}",
+                     message: print_r(
+                       value: [
                             'globals' => $GLOBALS,
-                            'db' => $e->getMessage()
+                                 'db' => $e->getMessage()
                         ],
-                        return: true
+                      return: true
                     )
                 );
             }
@@ -83,12 +84,12 @@ class DB
      */
     public static function envDbHandler(
          string $prefix,
-        ?string $db = null,
+        ?string $db    = null,
            bool $local = false
     ) : PDO
     {
         if( $local === true ) {
-            EasyEnv::loadEnv(path: __DIR__ . '/../.env', silent: true, append: true);
+            EasyEnv::loadEnv( path: __DIR__ . '/../.env', append: true );
         }
 
         $o = new self(
@@ -119,12 +120,12 @@ class DB
      */
     public static function localHandler(
          string $prefix,
-        ?string $db = null,
+        ?string $db    = null,
            bool $local = false
     ) : PDO
     {
         if( $local === true ) {
-            EasyEnv::loadEnv(path: __DIR__ . '/../.env', silent: true, append: true);
+            EasyEnv::loadEnv( path: __DIR__ . '/../.env', append: true );
         }
 
         $o = new self(
@@ -139,7 +140,7 @@ class DB
 
 
 
-/*
+/* GET DB HANDLER
 ----------------------------------------------------------------------------- */
 
     /**
@@ -171,8 +172,6 @@ class DB
 
 
 
-
-
 /* CREATE REPLACE INTO QUERY
 ---------------------------------------------------------------------------- */
 
@@ -195,7 +194,6 @@ class DB
                 ( {$values} )
         ";
     }
-
 
 
 
@@ -249,9 +247,8 @@ class DB
 
 
 
-
-    /* CREATE LIST OF COLUMNS
-    ---------------------------------------------------------------------------- */
+/* CREATE LIST OF COLUMNS
+---------------------------------------------------------------------------- */
 
     /**
      *  @param  array<string, string|int|float> $params List of columns and values
@@ -290,9 +287,7 @@ class DB
         }
 
         return rtrim( string: $output, characters: ', ' );
-
     }
-
 
 
 
@@ -334,6 +329,4 @@ class DB
     {
         return date( format: "Y-m-d H:i:s" );
     }
-
-
 }

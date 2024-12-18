@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Ocolin\Database;
+namespace Ocolin\EasyDB;
 
 
 class Rules
@@ -19,7 +19,7 @@ class Rules
     public static function is_INT( int|string|float $input ) : true|string
     {
         if( !filter_var( value: $input,  filter: FILTER_VALIDATE_INT )) {
-            return "INT: Value '{$input}' is not an ineteger.";
+            return "INT: Value '{$input}' is not an integer.";
         }
 
         return true;
@@ -43,7 +43,7 @@ class Rules
     {
 
         if( !filter_var( value: $input, filter: FILTER_VALIDATE_INT )) {
-            return "TINYINT: Value '{$input}' is not an ineteger.";
+            return "TINYINT: Value '{$input}' is not an integer.";
         }
 
         $input = (int)$input;
@@ -75,7 +75,7 @@ class Rules
     ) : true|string
     {
         if( !filter_var( value: $input, filter: FILTER_VALIDATE_INT )) {
-            return "SMALLINT: Value {$input} is not an ineteger.";
+            return "SMALLINT: Value {$input} is not an integer.";
         }
 
         $input = (int)$input;
@@ -106,7 +106,7 @@ class Rules
     ) : true|string
     {
         if( !filter_var( value: $input, filter: FILTER_VALIDATE_INT )) {
-            return "MEDIUMINT: Value '{$input}' is not an ineteger.";
+            return "MEDIUMINT: Value '{$input}' is not an integer.";
         }
 
         $input = (int)$input;
@@ -134,12 +134,11 @@ class Rules
     public static function is_BIGINT( int|string|float $input ) : true|string
     {
         if( !filter_var( value: $input, filter: FILTER_VALIDATE_INT )) {
-            return "BIGINT: Value '{$input}' is not an ineteger.";
+            return "BIGINT: Value '{$input}' is not an integer.";
         }
 
         return true;
     }
-
 
 
 
