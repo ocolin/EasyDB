@@ -176,12 +176,12 @@ class DB
 ---------------------------------------------------------------------------- */
 
     /**
-     *  @param  array<string, string|int|float> $params
+     *  @param  object|array<string, string|int|float> $params
      *  @param  string  $table Name of DB table
      *  @return string
      */
 
-    public static function replace_Into( array $params, string $table ) : string
+    public static function replace_Into( object|array $params, string $table ) : string
     {
         $columns = self::create_Columns( params: $params );
         $values  = self::create_Column_Values( params: $params );
@@ -202,11 +202,14 @@ class DB
 
     /**
      *  @param  PDOStatement $query
-     *  @param  array<string, string|int|float> $params
+     *  @param  object|array<string, string|int|float> $params
      *  @return void
      */
 
-    public static function bind_Values( PDOStatement &$query, array $params ) : void
+    public static function bind_Values(
+        PDOStatement &$query,
+        object|array $params
+    ) : void
     {
         foreach( $params as $key => $value )
         {
@@ -214,6 +217,10 @@ class DB
 
             if( gettype( value: $value ) == 'integer' ) {
                 $type = PDO::PARAM_INT;
+            }
+
+            if( gettype( value: $value ) == 'boolean' ) {
+                $type = PDO::PARAM_BOOL;
             }
             $name = ":{$key}";
             $query->bindValue( param: $name, value: $value, type: $type );
@@ -227,11 +234,14 @@ class DB
 
     /**
      *  @param  PDOStatement $query
-     *  @param  array<string, string|int|float> $params
+     *  @param  object|array<string, string|int|float> $params
      *  @return void
      */
 
-    public static function bind_Parameters( PDOStatement &$query, array &$params ) : void
+    public static function bind_Parameters(
+        PDOStatement &$query,
+        object|array &$params
+    ) : void
     {
         foreach( $params as $key => $value )
         {
@@ -240,6 +250,10 @@ class DB
             if( gettype( value:  $value ) === 'integer' ) {
                 $type = PDO::PARAM_INT;
             }
+            if( gettype( value:  $value ) === 'boolean' ) {
+                $type = PDO::PARAM_BOOL;
+            }
+
             $name = ":{$key}";
             $query->bindParam( param:  $name, var: $value, type: $type );
         }
@@ -251,11 +265,12 @@ class DB
 ---------------------------------------------------------------------------- */
 
     /**
-     *  @param  array<string, string|int|float> $params List of columns and values
+     *  @param  object|array<string, string|int|float> $params List of columns
+     *  and values
      *  @return string
      */
 
-    public static function create_Columns( array $params ) : string
+    public static function create_Columns( object|array $params ) : string
     {
         $output = '';
 
@@ -273,11 +288,12 @@ class DB
 ---------------------------------------------------------------------------- */
 
     /**
-     *  @param  array<string, string|int|float> $params List of columns and values
+     *  @param  object|array<string, string|int|float> $params List of columns
+     *  and values
      *  @return string
      */
 
-    public static function create_Column_Values( array $params ) : string
+    public static function create_Column_Values( object|array $params ) : string
     {
         $output = '';
 
@@ -297,12 +313,13 @@ class DB
     /**
      *  Take an array of parameters and filter out ones that are not allowed
      *
-     *  @param  array<string, string|int|float>   $params List of parameters to send to DB
+     *  @param  object|array<string, string|int|float> $params List of parameters
+     *  to send to DB
      *  @param  array<string>   $allowed          List of allowed parameters
      *  @return array<string, string|int|float>   List of filtered parameters
      */
 
-    public static function filter_Columns( array $params, array $allowed ) : array
+    public static function filter_Columns( object|array $params, array $allowed ) : array
     {
         $output = [];
 
