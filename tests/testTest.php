@@ -15,8 +15,13 @@ final class testTest extends TestCase
      */
     public function testONE() : void
     {
-        $test = DB::envDbHandler( prefix: 'TEST', local: true );
-        $test->prepare( query: "SELECT * FROM device");
+        $db = DB::envDbHandler( prefix: 'TEST', local: true );
+        $query = $db->prepare( query: "SELECT * FROM device");
+        $query->execute();
+
+        $output = $query->fetchAll( mode: \PDO::FETCH_ASSOC );
+        $this->assertIsArray( actual: $output );
+
     }
 }
 

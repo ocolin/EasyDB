@@ -47,7 +47,7 @@ class DB
         catch( PDOException $e ) {
             if( isset( $_ENV['DATABASE_ERROR_EMAIL'] )) {
                 mail(
-                          to: $_ENV['DATABASE_ERROR_EMAIL'],
+                          to: self::mixed_To_String( input: $_ENV['DATABASE_ERROR_EMAIL']),
                      subject: "DB error with {$this->host} : {$this->name}",
                      message: print_r(
                        value: [
@@ -93,10 +93,10 @@ class DB
         }
 
         $o = new self(
-            host: $_ENV[ $prefix . '_DB_HOST' ],
-            name: $db ?? $_ENV[ $prefix . '_DB_NAME' ],
-            user: $_ENV[ $prefix . '_DB_USER' ],
-            pass: $_ENV[ $prefix . '_DB_PASS' ],
+            host: self::mixed_To_String( input: $_ENV[ $prefix . '_DB_HOST' ]),
+            name: $db ?? self::mixed_To_String( input: $_ENV[ $prefix . '_DB_NAME' ]),
+            user: self::mixed_To_String( input: $_ENV[ $prefix . '_DB_USER' ]),
+            pass: self::mixed_To_String( input: $_ENV[ $prefix . '_DB_PASS' ]),
         );
 
         return $o->db;
@@ -130,9 +130,9 @@ class DB
 
         $o = new self(
             host: 'localhost',
-            name: $db ?? $_ENV[ $prefix . '_DB_NAME' ],
-            user: $_ENV[ $prefix . '_DB_USER' ],
-            pass: $_ENV[ $prefix . '_DB_PASS' ],
+            name: $db ?? self::mixed_To_String( input: $_ENV[ $prefix . '_DB_NAME' ]),
+            user: self::mixed_To_String( input: $_ENV[ $prefix . '_DB_USER' ]),
+            pass: self::mixed_To_String( input: $_ENV[ $prefix . '_DB_PASS' ]),
         );
 
         return $o->db;
@@ -315,8 +315,8 @@ class DB
      *
      *  @param  array<string, string|int|float|bool> $params List of parameters
      *  to send to DB
-     *  @param  array<string>   $allowed          List of allowed parameters
-     *  @return array<string, string|int|float>   List of filtered parameters
+     *  @param  array<string> $allowed List of allowed parameters
+     *  @return array<string, bool|string|int|float> List of filtered parameters
      */
 
     public static function filter_Columns( array $params, array $allowed ) : array
@@ -345,5 +345,23 @@ class DB
     public static function get_Timestamp() : string
     {
         return date( format: "Y-m-d H:i:s" );
+    }
+
+
+
+/* CONVERT MIXED TYPE TO STRING
+---------------------------------------------------------------------------- */
+
+    /**
+     * @param mixed $input Environment value
+     * @return string Return evn string or empty string.
+     */
+    public static function mixed_To_String( mixed $input ) : string
+    {
+        if( gettype( $input ) === 'string' ) {
+            return $input;
+        }
+
+        return '';
     }
 }

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91be035dd095a022084625369e452c93",
+    "content-hash": "1df6f24717355f93b1abaa8064a9496c",
     "packages": [
         {
             "name": "ocolin/easyenv",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ocolin/EasyEnv.git",
-                "reference": "9e13dc593811417eb20cb990614f5d24dfb7c21a"
+                "reference": "397001a8e912caac73ce16c6ed2c4113f89a65d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ocolin/EasyEnv/zipball/9e13dc593811417eb20cb990614f5d24dfb7c21a",
-                "reference": "9e13dc593811417eb20cb990614f5d24dfb7c21a",
+                "url": "https://api.github.com/repos/ocolin/EasyEnv/zipball/397001a8e912caac73ce16c6ed2c4113f89a65d2",
+                "reference": "397001a8e912caac73ce16c6ed2c4113f89a65d2",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "description": "Very simple tool to load env variables from file",
             "support": {
                 "issues": "https://github.com/ocolin/EasyEnv/issues",
-                "source": "https://github.com/ocolin/EasyEnv/tree/1.1"
+                "source": "https://github.com/ocolin/EasyEnv/tree/1.2"
             },
-            "time": "2024-12-20T21:24:49+00:00"
+            "time": "2025-05-01T02:50:16+00:00"
         }
     ],
     "packages-dev": [
@@ -286,20 +286,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.25",
+            "version": "2.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e310849a19e02b8bfcbb63147f495d8f872dd96f"
+                "reference": "e55e03e6d4ac49cd1240907e5b08e5cd378572a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e310849a19e02b8bfcbb63147f495d8f872dd96f",
-                "reference": "e310849a19e02b8bfcbb63147f495d8f872dd96f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e55e03e6d4ac49cd1240907e5b08e5cd378572a9",
+                "reference": "e55e03e6d4ac49cd1240907e5b08e5cd378572a9",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -340,7 +340,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-27T12:20:45+00:00"
+            "time": "2025-04-27T12:28:25+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
