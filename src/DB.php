@@ -10,7 +10,7 @@ if( file_exists( filename: __DIR__ . '/../vendor/autoload.php' )) {
 
 use Exception;
 use PDO;
-use Ocolin\Env\EasyEnv;
+use Ocolin\EasyEnv\LoadEnv;
 use PDOException;
 use PDOStatement;
 
@@ -89,7 +89,7 @@ class DB
     ) : PDO
     {
         if( $local === true ) {
-            EasyEnv::loadEnv( path: __DIR__ . '/../.env', append: true );
+            new LoadEnv( files: __DIR__ . '/../.env', append: true );
         }
 
         $o = new self(
@@ -125,7 +125,7 @@ class DB
     ) : PDO
     {
         if( $local === true ) {
-            EasyEnv::loadEnv( path: __DIR__ . '/../.env', append: true );
+            new LoadEnv( files: __DIR__ . '/../.env', append: true );
         }
 
         $o = new self(
