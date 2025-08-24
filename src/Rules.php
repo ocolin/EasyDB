@@ -51,8 +51,8 @@ class Rules
             return "TINYINT unsigned: Value '{$input}' is out of range.";
         }
 
-        if( $input < -128 OR $input > 127 ) {
-            return "TINYINT: Value '{$input}' is out of range for Tiny Int.";
+        if( $unsigned === false AND ( $input < -128 OR $input > 127 )) {
+            return "TINYINT signed: Value '{$input}' is out of range.";
         }
 
         return true;
@@ -83,7 +83,7 @@ class Rules
             return "TINYINT unsigned: Value '{$input}' is out of range.";
         }
 
-        if( $input < -32768 OR $input > 32767 ) {
+        if(  $unsigned === false AND ( $input < -32768 OR $input > 32767 )) {
             return "SMALLINT: Value '{$input}' is out of range for Medium Int.";
         }
 
@@ -114,7 +114,7 @@ class Rules
             return "MEDIUMINT unsigned: Value '{$input}' is out of range.";
         }
 
-        if( $input < -8388608 OR $input > 8388607 ) {
+        if( $unsigned === false AND ( $input < -8388608 OR $input > 8388607 )) {
             return "MEDIUMINT: Value '{$input}' is out of range for Medium Int.";
         }
 
@@ -212,7 +212,7 @@ class Rules
      * @return true|string
      */
 
-    public static function is_CHAR( string $input, int $length ) : true|string
+    public static function is_CHAR( string $input, int $length = 255 ) : true|string
     {
         if( strlen( string: $input ) > $length ) {
             return "CHAR: Value '{$input}' is too long for CHAR({$length}).";
@@ -232,7 +232,7 @@ class Rules
      * @return true|string
      */
 
-    public static function is_VARCHAR( string $input, int $length ) : true|string
+    public static function is_VARCHAR( string $input, int $length = 255 ) : true|string
     {
         if( strlen( string: $input ) > $length ) {
             return "VARCHAR: Value '{$input}' is too long for VARCHAR({$length}).";
