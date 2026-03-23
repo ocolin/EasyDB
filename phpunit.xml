@@ -6,11 +6,25 @@
         beStrictAboutChangesToGlobalState="true"
         cacheDirectory=".phpunit.cache"
         displayDetailsOnTestsThatTriggerWarnings="true"
+        displayDetailsOnTestsThatTriggerNotices="true"
+        displayDetailsOnTestsThatTriggerDeprecations="true"
 >
     <testsuites>
-        <testsuite name="Validations">
-            <file>tests/testTest.php</file>
+        <testsuite name="tests">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+
+    <coverage>
+        <report>
+            <html outputDirectory="coverage"/>
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
 </phpunit>

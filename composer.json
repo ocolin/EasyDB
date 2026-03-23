@@ -1,15 +1,25 @@
 {
-    "name": "ocolin/easydb",
-    "description": "Basic ENV based database handler meant for simple use light weight cases",
+    "name": "ocolin/easy-db",
+    "description": "Simple, lightweight PDO database handler with environment variable support",
     "type": "library",
+    "keywords": ["database", "pdo", "mysql", "env", "db"],
+    "homepage": "https://github.com/ocolin/EasyDB",
+    "support": {
+        "issues": "https://github.com/ocolin/EasyDB/issues",
+        "source": "https://github.com/ocolin/EasyDB"
+    },
     "require-dev": {
-        "phpunit/phpunit": "^12.0",
+        "phpunit/phpunit": "^13.0",
         "phpstan/phpstan": "^2.1"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ocolin\\EasyDB\\": "src/",
+            "Ocolin\\EasyDB\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Ocolin\\EasyDB\\Tests\\": "tests/"
         }
     },
@@ -20,8 +30,13 @@
         }
     ],
     "require": {
-        "ocolin/easyenv": "^2.0",
+        "ocolin/easyenv": "^3.0",
         "ext-pdo": "*",
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "ocolin/global-type": "^2.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --no-coverage --display-deprecations --display-notices",
+        "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html coverage"
     }
 }
