@@ -7,23 +7,20 @@ namespace Ocolin\EasyDB;
 use Ocolin\EasyEnv\EasyEnvFileHandleError;
 use Ocolin\EasyEnv\Env As EasyEnv;
 use Ocolin\GlobalType\ENV;
-use PDO;
 use RuntimeException;
+use PDO;
 
-/*
- *  PDO::ATTR_DEFAULT_FETCH_MODE    PDO::FETCH_ASSOC
- *  PDO::ATTR_EMULATE_PREPARES
- *  PDO::ATTR_PERSISTENT
- *  PDO::MYSQL_ATTR_INIT_COMMAND
- */
 
 
 class DB
 {
+    /**
+     * @var PDO PDO handler.
+     */
     private PDO $db;
 
 
-/*
+/* CONSTRUCTOR
 ----------------------------------------------------------------------------- */
 
     /**
@@ -31,6 +28,7 @@ class DB
      * @param string $user Name of login user.
      * @param string $pass Password for login.
      * @param string $host Hostname of database server.
+     * @param int $port Database port number.
      * @param array<int, int|bool> $options Additional PDO options.
      */
     private function __construct(
@@ -38,6 +36,7 @@ class DB
         string $user,
         string $pass,
         string $host = 'localhost',
+           int $port = 3306,
          array $options = []
     )
     {
@@ -48,7 +47,7 @@ class DB
         ];
 
         $this->db = new PDO(
-                 dsn: "mysql:host={$host};dbname={$name}",
+                 dsn: "mysql:host={$host};port={$port};dbname={$name}",
             username: $user,
             password: $pass,
              options: $options
@@ -57,14 +56,17 @@ class DB
 
 
 
-/*
+/* CONNECT TO DB
 ----------------------------------------------------------------------------- */
 
     /**
+     * Connect to database and return a PDO handler.
+     *
      * @param string $host Hostname of database server.
      * @param string $name Name of database.
      * @param string $user Name of login user.
      * @param string $pass Password for login.
+     * @param int $port Port number of database.
      * @param array<int, int|bool> $options Additional PDO options.
      */
     public static function connect(
@@ -72,6 +74,7 @@ class DB
         string $name,
         string $user,
         string $pass,
+           int $port = 3306,
          array $options = []
     ) : PDO
     {
@@ -80,6 +83,7 @@ class DB
                user: $user,
                pass: $pass,
                host: $host,
+               port: $port,
             options: $options
         ))->db;
     }
@@ -107,13 +111,15 @@ class DB
         if( $files !== null ) { EasyEnv::load( files: $files, append: true ); }
 
         return self::connect(
-            host: self::requireEnv( name: $prefix . '_DB_HOST' ),
-            name: self::requireEnv( name: $prefix . '_DB_NAME' ),
-            user: self::requireEnv( name: $prefix . '_DB_USER' ),
-            pass: self::requireEnv( name: $prefix . '_DB_PASS' ),
+               host: self::requireEnv( name: $prefix . '_DB_HOST' ),
+               name: self::requireEnv( name: $prefix . '_DB_NAME' ),
+               user: self::requireEnv( name: $prefix . '_DB_USER' ),
+               pass: self::requireEnv( name: $prefix . '_DB_PASS' ),
+               port: ENV::getIntNull( name: $prefix . 'DB_PORT' ) ?? 3306,
             options: $options
         );
     }
+
 
 
 /* REQUIRE ENVIRONMENT VARIABLES

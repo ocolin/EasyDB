@@ -32,6 +32,7 @@ Here are the environment variables that get loaded. In this example, the prefix 
 - PREFIX_DB_NAME
 - PREFIX_DB_USER
 - PREFIX_DB_PASS
+- PREFIX_DB_PORT
 
 #### Code example:
 
@@ -41,6 +42,7 @@ $_ENV['PREFIX_DB_HOST'] = 'localhost';
 $_ENV['PREFIX_DB_NAME'] = 'mydb';
 $_ENV['PREFIX_DB_USER'] = 'admin';
 $_ENV['PREFIX_DB_PASS'] = 'password1234';
+$_ENV['PREFIX_DB_PORT'] = 3306 // This is the default so does not need to be set.
 
 $prefix_db = Ocolin\EasyDB\DB::fromEnv( prefix: 'PREFIX' );
 ```
@@ -70,7 +72,8 @@ $pdo_handler = Ocolin\EasyDB\DB::connect(
     host: 'localhost',
     name: 'mydb',
     user: 'admin',
-    pass: 'password1234'
+    pass: 'password1234',
+    port: 3306 // This is default and does not need to be set.
 );
 ```
 
@@ -95,7 +98,9 @@ An additional helper library is added to assist with building some of the more b
 This function takes an array of database column names and create a coma separated string that can be used in an SQL query to specify columns to return in a SELECT query.
 
 ```php
-$output = Ocolin\EasyDB\Query::createColumns( params: [ 'A' => '1', 'B' => '2', 'C' => '3'] );
+$output = Ocolin\EasyDB\Query::createColumns( 
+    params: [ 'A' => '1', 'B' => '2', 'C' => '3'] 
+); 
 // output: `A`, `B`, `C`
 ```
 
@@ -104,7 +109,9 @@ $output = Ocolin\EasyDB\Query::createColumns( params: [ 'A' => '1', 'B' => '2', 
 This function takes an associative array and builds a coma separated variable names for an INSERT type os query.
 
 ```php
-$output = Ocolin\EasyDB\Query::createColumnValues( params: [ 'A' => '1', 'B' => '2', 'C' => '3']);
+$output = Ocolin\EasyDB\Query::createColumnValues( 
+    params: [ 'A' => '1', 'B' => '2', 'C' => '3']
+);
 // output: ":A, :B, :C"
 ```
 
@@ -129,7 +136,9 @@ $output = Ocolin\EasyDB\Query::replaceInto(
 This function allows you to bind data to your PDO query parameters. It requires a pointer to your PDO statement handler, and an array of your data.
 
 ```php
-Ocolin\EasyDB\Query::bindParameters( query: $pdo_statement, params: [ 'A' => '1', 'B' => '2', 'C' => '3' ] );
+Ocolin\EasyDB\Query::bindParameters( 
+    query: $pdo_statement, params: [ 'A' => '1', 'B' => '2', 'C' => '3' ] 
+);
 ```
 Used in conjunction with a function like replaceInto(), it will bind those array values to the matching parameter names in your PDO query statement.
 
@@ -138,7 +147,9 @@ Used in conjunction with a function like replaceInto(), it will bind those array
 This is similar to bind parameters but does so with values. 
 
 ```php
-Ocolin\EasyDB\Query::bindValues( query: $pdo_statement, params: [ 'A' => '1', 'B' => '2', 'C' => '3' ] );
+Ocolin\EasyDB\Query::bindValues( 
+    query: $pdo_statement, params: [ 'A' => '1', 'B' => '2', 'C' => '3' ] 
+);
 ```
 ### filterColumns
 
